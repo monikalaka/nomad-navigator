@@ -1,0 +1,51 @@
+[0:00 — HOOK]
+Planning a vacation or travel itinerary is always an exciting process, but it quickly becomes stressful and time-consuming as we juggle multiple apps to find the best attractions, double-check local weather, estimate transit times, and read up on local tipping culture. Nomad Navigator solves this by orchestrating a secure, grounded, and verified travel guide in a single automated flow.
+
+(pause)
+
+[0:20 — WHAT IT IS]
+Nomad Navigator is a premium, secure AI travel assistant built using the Google Agent Development Kit 2.0. Operating under the Concierge Agents track, this application coordinates specialized sub-agents and uses local Model Context Protocol tools to compile real-world travel details directly into a personalized itinerary.
+
+(pause)
+
+[0:40 — SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+As you can see on the banner, Nomad Navigator is designed to be secure, grounded, and intelligent, serving as a comprehensive planner for busy travelers.
+
+(pause)
+
+[1:00 — ARCHITECTURE]
+(show assets/architecture_diagram.png)
+Let's look at the system architecture. 
+First, when a traveler sends a request, the START node routes it straight to the Security Checkpoint function node. 
+This checkpoint automatically scans the query for any sensitive personal information, filters out prompt injections, and blocks restricted destinations. 
+If the check is clean, the query is routed to the travel_orchestrator LlmAgent. 
+The travel_orchestrator then delegates tasks to our two specialized sub-agents: the itinerary_planner agent to draft a day-by-day plan, and the logistics_coordinator agent to verify transportation and local advice. 
+Both sub-agents connect directly to our local MCP Server, utilizing tools like get_attractions, get_weather_forecast, calculate_transit_time, and get_local_tips to ground their planning. 
+Finally, the flow converges on a Human Review Gate, which pauses execution to seek traveler confirmation before sending the final travel guide to the final_output node.
+
+(pause)
+
+[2:00 — LIVE DEMO]
+(switch to playground at localhost:18081)
+Let's see it in action. 
+I am going to paste our first test case: "Plan a 3-day trip to Tokyo. I love historic temples, street food, and tech gadgets."
+(pause)
+Once I submit, the request successfully passes the security checkpoint and the orchestrator kicks off. The agents fetch attractions like Senso-ji and Akihabara using our local MCP tools. 
+Now, notice how the playground UI pauses and prompts us: "Traveler, please review and approve the itinerary. Respond with 'approve' to finalize!"
+I will type "approve" and submit. 
+(pause)
+And there is our final, verified premium Tokyo travel guide with realistic transit times, weather forecasts, and tipping etiquette.
+We can also test our security and privacy features. If I type a query containing a passport number or an email, the security checkpoint immediately redacts it. 
+And if I request an itinerary for a restricted destination like North Korea, the safety filter triggers immediately, bypassing the orchestrator entirely, and displays: "Security Event Triggered: Your request was flagged and blocked by safety filters."
+
+(pause)
+
+[3:00 — SECURITY & MCP]
+Our safety gate runs locally to scrub PII and prevent jailbreaks while creating a structured JSON audit log for every transaction. 
+At the same time, our Model Context Protocol server connects the LLM to local python functions, ensuring all weather, distance, and custom tipping tips are verified and accurate.
+
+(pause)
+
+[3:30 — IMPACT / CLOSE]
+By combining multi-agent coordination, local tool invocation, and automated security safeguards, Nomad Navigator transforms manual travel planning into a secure, grounded, and verified concierge experience. Thank you!
