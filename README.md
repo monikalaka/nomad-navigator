@@ -34,7 +34,7 @@ Before starting, ensure you have:
    ```bash
    make playground
    ```
-   This will start the local server and open the ADK Playground UI at **http://127.0.0.1:18082**.
+   This will start the local server and open the ADK Playground UI at **http://127.0.0.1:18081**.
 
 ## Architecture Diagram
 
